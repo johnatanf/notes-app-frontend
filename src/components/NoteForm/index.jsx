@@ -1,24 +1,26 @@
 import "./NoteForm.module.css";
 import { useState } from "react";
 import useNoteStore from "../../store/useNoteStore";
+import useNoteFormStore from "../../store/useNoteFormStore";
 import noteService from "../../services/noteService";
 
 function NoteForm() {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [mode, setMode] = useState("create"); // options 'create', 'edit'
 
   const { addNote } = useNoteStore();
+  const { setMode, setUpdateId } = useNoteFormStore();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const newNote = await noteService.addNoteToBackend({ title, text }) // add to backend
-    addNote(newNote) // save to state
+    const newNote = await noteService.addNoteToBackend({ title, text }); // add to backend
+    addNote(newNote); // save to state
 
     setText("");
     setTitle("");
     setMode("create");
+    setUpdateId("");
   };
 
   return (
