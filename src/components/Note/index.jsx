@@ -1,22 +1,20 @@
 import styles from "./Note.module.css";
+import useNoteStore from "../../store/useNoteStore";
+import noteService from "../../services/noteService";
 
 function Note({ id, title, text, archived, pinned, createdAt, updatedAt }) {
+  const { deleteNote } = useNoteStore()
 
-  const handleArchive = () => {
+  const handleArchive = () => {};
 
-  }
+  const handlePin = () => {};
 
-  const handlePin = () => {
-    
-  }
-  
-  const handleUpdate = () => {
+  const handleUpdate = () => {};
 
-  }
-
-  const handleDelete = () => {
-
-  }
+  const handleDelete = async () => {
+    await noteService.deleteNoteFromBackend(id) // remove from backend
+    deleteNote(id) // remove from state
+  };
 
   return (
     <div
@@ -34,7 +32,7 @@ function Note({ id, title, text, archived, pinned, createdAt, updatedAt }) {
       <button>Archive</button>
       <button>Pin</button>
       <button>Edit</button>
-      <button>Delete</button>
+      <button onClick={handleDelete}>Delete</button>
     </div>
   );
 }

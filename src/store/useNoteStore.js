@@ -23,6 +23,8 @@ const useNoteStore = create((set) => ({
     },
   ],
   addNote: (note) => set((state) => ({ notes: [...state.notes, note] })),
+  deleteNote: (id) =>
+    set((state) => ({ notes: state.notes.filter((note) => note.id !== id) })),
 }));
 
 export default useNoteStore;

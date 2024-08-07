@@ -33,8 +33,9 @@ const updateNoteInBackend = async () => {
   }
 };
 
-const deleteNoteFromBackend = async () => {
+const deleteNoteFromBackend = async (id) => {
   try {
+    console.log(`simulating deletion of note ${id}`)
   } catch (error) {
     console.log("Error deleting note:", error);
     throw error;
