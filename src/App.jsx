@@ -1,15 +1,16 @@
-import Profile from './components/Profile'
-import './App.css'
+import Profile from "./components/Profile";
+import NoteForm from "./components/NoteForm";
+import NoteList from "./components/NoteList";
+import "./App.css";
 
 function App() {
-
   return (
     <>
-      <div>
-        <Profile />
-      </div>
+      <Profile />
+      <NoteForm />
+      <NoteList />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
