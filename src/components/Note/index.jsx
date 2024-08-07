@@ -1,7 +1,23 @@
 import styles from "./Note.module.css";
 
 function Note({ id, title, text, archived, pinned, createdAt, updatedAt }) {
-  console.log(archived);
+
+  const handleArchive = () => {
+
+  }
+
+  const handlePin = () => {
+    
+  }
+  
+  const handleUpdate = () => {
+
+  }
+
+  const handleDelete = () => {
+
+  }
+
   return (
     <div
       className={`${styles.div} ${archived ? styles.archived : ""} ${

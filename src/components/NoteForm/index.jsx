@@ -26,6 +26,7 @@ function NoteForm() {
       <div>
         <label htmlFor="title">Title:</label>
         <input
+          required
           type="text"
           id="title"
           value={title}
@@ -40,6 +41,7 @@ function NoteForm() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Note text..."
+          required
         />
       </div>
       <button type="submit">Submit</button>
