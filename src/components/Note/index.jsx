@@ -1,38 +1,45 @@
 import styles from "./Note.module.css";
 import useNoteStore from "../../store/useNoteStore";
+import useNoteFormStore from "../../store/useNoteFormStore";
 import noteService from "../../services/noteService";
 
-function Note({ id, title, text, archived, pinned, createdAt, updatedAt }) {
-  const { deleteNote } = useNoteStore()
+function Note({ note }) {
+  const { deleteNote } = useNoteStore();
+  const { setMode, setUpdatedNote, setTitle, setText } = useNoteFormStore();
 
   const handleArchive = () => {};
 
   const handlePin = () => {};
 
-  const handleUpdate = () => {};
+  const handleUpdate = (note) => {
+    setMode('edit')
+    setUpdatedNote(note)
+    setTitle(note.title)
+    setText(note.text)
+  };
 
-  const handleDelete = async () => {
-    await noteService.deleteNoteFromBackend(id) // remove from backend
-    deleteNote(id) // remove from state
+  const handleDelete = async (id) => {
+    await noteService.deleteNoteFromBackend(id); // remove from backend
+    deleteNote(id); // remove from state
   };
 
   return (
     <div
-      className={`${styles.div} ${archived ? styles.archived : ""} ${
-        pinned ? styles.pinned : ""
+      className={`${styles.div} ${note.archived ? styles.archived : ""} ${
+        note.pinned ? styles.pinned : ""
       }`}
     >
-      <p>{id}</p>
-      <p>{title}</p>
-      <p>{text}</p>
-      <p>{archived}</p>
-      <p>{pinned}</p>
-      <p>{createdAt.toString()}</p>
-      <p>{updatedAt.toString()}</p>
+      <p>{note.id}</p>
+      <p>{note.title}</p>
+      <p>{note.text}</p>
+      <p>{note.archived}</p>
+      <p>{note.pinned}</p>
+      <p>{note.createdAt.toString()}</p>
+      <p>{note.updatedAt.toString()}</p>
       <button>Archive</button>
       <button>Pin</button>
-      <button>Edit</button>
-      <button onClick={handleDelete}>Delete</button>
+      <button onClick={() => handleUpdate(note)}>Edit</button>
+      <button onClick={() => handleDelete(note.id)}>Delete</button>
     </div>
   );
 }

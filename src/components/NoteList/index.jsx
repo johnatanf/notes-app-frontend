@@ -9,13 +9,7 @@ function NoteList() {
     {notes.map(note => (
       <Note 
         key={note.id}
-        id={note.id}
-        title={note.title}
-        text={note.text}
-        archived={note.archived}
-        pinned={note.pinned}
-        createdAt={note.createdAt}
-        updatedAt={note.updatedAt}
+        note={note}
       />
     ))}
   </div>;

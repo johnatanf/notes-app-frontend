@@ -1,30 +1,56 @@
 import "./NoteForm.module.css";
-import { useState } from "react";
 import useNoteStore from "../../store/useNoteStore";
 import useNoteFormStore from "../../store/useNoteFormStore";
 import noteService from "../../services/noteService";
+import styles from "./NoteForm.module.css";
 
 function NoteForm() {
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
-
-  const { addNote } = useNoteStore();
-  const { setMode, setUpdateId } = useNoteFormStore();
+  const { addNote, updateNote } = useNoteStore();
+  const {
+    mode,
+    setMode,
+    updatedNote,
+    setUpdatedNote,
+    title,
+    setTitle,
+    text,
+    setText,
+  } = useNoteFormStore();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const newNote = await noteService.addNoteToBackend({ title, text }); // add to backend
-    addNote(newNote); // save to state
+    if (mode === "edit") {
+      // edit mode
+      const updateNoteBackend = await noteService.updateNoteInBackend(
+        updatedNote.id,
+        { title, text }
+      ); // update in backend
+      updateNote(updatedNote.id, { title, text }); // save to state (frontend)
+    } else {
+      // create mode
+      const newNote = await noteService.addNoteToBackend({ title, text }); // add to backend
+      addNote(newNote); // save to state (frontend)
+    }
 
-    setText("");
-    setTitle("");
     setMode("create");
-    setUpdateId("");
+    setTitle("");
+    setText("");
+    setUpdatedNote({});
+  };
+
+  const handleCancel = async () => {
+    setMode("create");
+    setUpdatedNote({});
+    setTitle("");
+    setText("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className={`${styles.div} ${mode === "edit" ? styles.edit : ""}`}
+    >
       <div>
         <label htmlFor="title">Title:</label>
         <input
@@ -47,6 +73,7 @@ function NoteForm() {
         />
       </div>
       <button type="submit">Submit</button>
+      {mode === "edit" ? <button onClick={handleCancel}>Cancel</button> : null}
     </form>
   );
 }

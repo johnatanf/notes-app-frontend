@@ -1,11 +1,14 @@
 import { create } from "zustand";
 
 const useNoteFormStore = create((set) => ({
+  title: "",
+  setTitle: (title) => set( { title }),
+  text: "",
+  setText: (text) => set( { text }),
   mode: "create",
-  //   setMode: (mode) => set({ mode }),
   setMode: (mode) => set({ mode }),
-  updateId: "",
-  setUpdateId: (updateId) => set({ updateId }),
+  updatedNote: {},
+  setUpdatedNote: (updatedNote) => set({ updatedNote }),
 }));
 
 export default useNoteFormStore;

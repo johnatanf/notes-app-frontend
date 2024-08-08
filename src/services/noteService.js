@@ -1,4 +1,5 @@
 import uuid4 from "uuid4";
+import useNoteStore from "../store/useNoteStore";
 
 const addNoteToBackend = async (newNote) => {
   try {
@@ -9,8 +10,8 @@ const addNoteToBackend = async (newNote) => {
       archived: false,
       pinned: false,
       createdAt: new Date(),
-      updatedAt: new Date()
-    }
+      updatedAt: new Date(),
+    };
   } catch (error) {
     console.error("Error adding note:", error);
     throw error;
@@ -25,8 +26,13 @@ const getNotesFromBackend = async () => {
   }
 };
 
-const updateNoteInBackend = async () => {
+const updateNoteInBackend = async (id, updatedNoteInput) => {
   try {
+    const { notes } = useNoteStore.getState();
+
+    const initialNote = notes.find(note => note.id === id)
+    const updatedNoteOutput = { ...initialNote, title: updatedNoteInput.title, text: updatedNoteInput.text }
+    return updatedNoteOutput
   } catch (error) {
     console.log("Error updating note:", error);
     throw error;
@@ -35,11 +41,16 @@ const updateNoteInBackend = async () => {
 
 const deleteNoteFromBackend = async (id) => {
   try {
-    console.log(`simulating deletion of note ${id}`)
+    console.log(`simulating deletion of note ${id}`);
   } catch (error) {
     console.log("Error deleting note:", error);
     throw error;
   }
 };
 
-export default { addNoteToBackend, getNotesFromBackend, updateNoteInBackend, deleteNoteFromBackend };
+export default {
+  addNoteToBackend,
+  getNotesFromBackend,
+  updateNoteInBackend,
+  deleteNoteFromBackend,
+};
