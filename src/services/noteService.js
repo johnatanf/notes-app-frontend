@@ -31,7 +31,7 @@ const updateNoteInBackend = async (id, updatedNoteInput) => {
     const { notes } = useNoteStore.getState();
 
     const initialNote = notes.find(note => note.id === id)
-    const updatedNoteOutput = { ...initialNote, title: updatedNoteInput.title, text: updatedNoteInput.text }
+    const updatedNoteOutput = { ...initialNote, ...updatedNoteInput }
     return updatedNoteOutput
   } catch (error) {
     console.log("Error updating note:", error);
