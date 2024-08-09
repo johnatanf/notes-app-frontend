@@ -9,8 +9,8 @@ const addNoteToBackend = async (newNote) => {
       text: newNote.text,
       archived: false,
       pinned: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toISOString().slice(0, 10),
+      updatedAt: new Date().toISOString().slice(0, 10),
     };
   } catch (error) {
     console.error("Error adding note:", error);
@@ -30,9 +30,9 @@ const updateNoteInBackend = async (id, updatedNoteInput) => {
   try {
     const { notes } = useNoteStore.getState();
 
-    const initialNote = notes.find(note => note.id === id)
-    const updatedNoteOutput = { ...initialNote, ...updatedNoteInput }
-    return updatedNoteOutput
+    const initialNote = notes.find((note) => note.id === id);
+    const updatedNoteOutput = { ...initialNote, ...updatedNoteInput };
+    return updatedNoteOutput;
   } catch (error) {
     console.log("Error updating note:", error);
     throw error;
