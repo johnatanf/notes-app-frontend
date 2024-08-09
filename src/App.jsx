@@ -1,19 +1,33 @@
-import Profile from "./components/Profile";
-import NoteForm from "./components/NoteForm";
-import Filter from "./components/Filter";
-import Sort from "./components/Sort";
-import NoteList from "./components/NoteList";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
+import LoginPage from "./pages/LoginPage";
+import NoteAppPage from "./pages/NoteAppPage";
+import RegisterPage from "./pages/RegisterPage";
+import useUserStore from "./store/useUserStore";
 
 function App() {
+  const { user, setUser, token } = useUserStore();
+
   return (
-    <>
-      <Profile />
-      <NoteForm />
-      <Filter />
-      <Sort />
-      <NoteList />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/note-app"
+          element={user && token ? <NoteAppPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="*"
+          element={<Navigate to={user && token ? "/note-app" : "/login"} />}
+        />
+      </Routes>
+    </Router>
   );
 }
 

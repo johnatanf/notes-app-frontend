@@ -7,7 +7,7 @@ function Profile() {
   return (
     <>
       <div>
-        { user ? <p>{user.username} currently logged in</p> : null }
+        { user ? <p>{user.email} currently logged in</p> : null }
       </div>
     </>
   )
