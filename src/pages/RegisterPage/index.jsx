@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import registerService from "../../services/registerService";
 import styles from "./RegisterPage.module.css";
 
 function RegisterPage() {
@@ -6,11 +8,16 @@ function RegisterPage() {
   const [usernameInput, setUsernameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    setEmailInput(emailInput);
-    setPasswordInput(passwordInput);
+    await registerService.registerUser(
+      fullNameInput,
+      usernameInput,
+      emailInput,
+      passwordInput
+    );
+    navigate("/notes-app");
   };
 
   return (

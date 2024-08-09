@@ -1,14 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import loginService from "../../services/loginService";
 import styles from "./LoginPage.module.css";
 
 function LoginPage() {
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const navigate = useNavigate();
 
-    setEmailInput(emailInput);
-    setPasswordInput(passwordInput);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await loginService.loginUser(emailInput, passwordInput);
+    navigate("/notes-app");
   };
 
   return (
