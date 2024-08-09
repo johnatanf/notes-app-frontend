@@ -20,6 +20,26 @@ const addNoteToBackend = async (newNote) => {
 
 const getNotesFromBackend = async () => {
   try {
+    return [
+      {
+        id: uuid4(),
+        title: "My first note",
+        text: "This is a random long text",
+        archived: false,
+        pinned: false,
+        createdAt: "2024-08-09",
+        updatedAt: "2024-08-09",
+      },
+      {
+        id: uuid4(),
+        title: "My SECOND note",
+        text: "Blah blah blah random text",
+        archived: false,
+        pinned: false,
+        createdAt: "2024-08-05",
+        updatedAt: "2024-08-05",
+      },
+    ];
   } catch (error) {
     console.log("Error retrieving notes:", error);
     throw error;

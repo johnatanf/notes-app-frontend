@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -9,9 +10,23 @@ import LoginPage from "./pages/LoginPage";
 import NoteAppPage from "./pages/NoteAppPage";
 import RegisterPage from "./pages/RegisterPage";
 import useUserStore from "./store/useUserStore";
+import useNoteStore from "./store/useNoteStore";
+import noteService from "./services/noteService";
 
 function App() {
   const { user, setUser, token } = useUserStore();
+  const { setNotes } = useNoteStore();
+
+  useEffect(() => {
+    if (user && token) {
+      const getNotes = async () => {
+        const notes = await noteService.getNotesFromBackend();
+        setNotes(notes);
+      };
+
+      getNotes();
+    }
+  }, [user, token, setNotes]);
 
   return (
     <Router>
