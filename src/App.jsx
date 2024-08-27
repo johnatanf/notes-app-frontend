@@ -10,22 +10,15 @@ import LoginPage from "./pages/LoginPage";
 import NoteAppPage from "./pages/NoteAppPage";
 import RegisterPage from "./pages/RegisterPage";
 import useUserStore from "./store/useUserStore";
-import useNoteStore from "./store/useNoteStore";
-import noteService from "./services/noteService";
 import axios from "axios";
 
 const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 function App() {
   const { isAuthenticated, setIsAuthenticated, setUser } = useUserStore();
-  const { setNotes } = useNoteStore();
+  
 
   useEffect(() => {
-    const getNotes = async () => {
-      const notes = await noteService.getNotesFromBackend();
-      setNotes(notes);
-    };
-
     const checkAuthStatus = async () => {
       try {
         const response = await axios.get(`${apiUrl}/auth/status`, { withCredentials: true });
@@ -33,7 +26,6 @@ function App() {
           setIsAuthenticated(true);
           setUser({ email: response.data.email })
           console.log(response.data.email)
-          // await getNotes();
         }
 
       } catch (error) {

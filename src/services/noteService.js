@@ -1,5 +1,8 @@
 import uuid4 from "uuid4";
 import useNoteStore from "../store/useNoteStore";
+import axios from "axios";
+
+const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 const addNoteToBackend = async (newNote) => {
   try {
@@ -20,26 +23,23 @@ const addNoteToBackend = async (newNote) => {
 
 const getNotesFromBackend = async () => {
   try {
-    return [
-      {
-        id: uuid4(),
-        title: "My first note",
-        text: "This is a random long text",
-        archived: false,
-        pinned: false,
-        createdAt: "2024-08-09",
-        updatedAt: "2024-08-09",
-      },
-      {
-        id: uuid4(),
-        title: "My SECOND note",
-        text: "Blah blah blah random text",
-        archived: false,
-        pinned: false,
-        createdAt: "2024-08-05",
-        updatedAt: "2024-08-05",
-      },
-    ];
+    const response = await axios.get(`${apiUrl}/notes`, {
+      withCredentials: true,
+    });
+
+    const data = response.data.map((item) => {
+      return {
+        id: item.id,
+        title: item.title,
+        text: item.text,
+        archived: item.archived,
+        pinned: item.pinned,
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+      };
+    });
+
+    return data;
   } catch (error) {
     console.log("Error retrieving notes:", error);
     throw error;
