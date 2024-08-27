@@ -1,10 +1,15 @@
-import uuid4 from "uuid4";
 import useUserStore from "../store/useUserStore";
+import axios from 'axios';
+
+const apiUrl = import.meta.env.VITE_REACT_APP_API_URL
 
 const loginUser = async (email, password) => {
   try {
-    const { setUser } = useUserStore.getState();
-    setUser({ email }, uuid4());
+    const response = await axios.post(`${apiUrl}/login`, { email, password_hash: password }, {withCredentials: true})
+
+    const { setUser, setIsAuthenticated } = useUserStore.getState();
+    setUser({ email });
+    setIsAuthenticated(true)
 
     return {
       message: "successful",

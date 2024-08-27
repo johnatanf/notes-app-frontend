@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -12,21 +12,42 @@ import RegisterPage from "./pages/RegisterPage";
 import useUserStore from "./store/useUserStore";
 import useNoteStore from "./store/useNoteStore";
 import noteService from "./services/noteService";
+import axios from "axios";
+
+const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 function App() {
-  const { user, setUser, token } = useUserStore();
+  const { isAuthenticated, setIsAuthenticated, setUser } = useUserStore();
   const { setNotes } = useNoteStore();
 
   useEffect(() => {
-    if (user && token) {
-      const getNotes = async () => {
-        const notes = await noteService.getNotesFromBackend();
-        setNotes(notes);
-      };
+    const getNotes = async () => {
+      const notes = await noteService.getNotesFromBackend();
+      setNotes(notes);
+    };
 
-      getNotes();
-    }
-  }, [user, token, setNotes]);
+    const checkAuthStatus = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/auth/status`, { withCredentials: true });
+        if (response.data.authenticated) {
+          setIsAuthenticated(true);
+          setUser({ email: response.data.email })
+          console.log(response.data.email)
+          // await getNotes();
+        }
+
+      } catch (error) {
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuthStatus();
+
+  }, []);
+
+  if (isAuthenticated === null) {
+    return <div>Loading...</div>
+  }
 
   return (
     <Router>
@@ -35,11 +56,11 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route
           path="/note-app"
-          element={user && token ? <NoteAppPage /> : <Navigate to="/login" />}
+          element={isAuthenticated ? <NoteAppPage /> : <Navigate to="/login" />}
         />
         <Route
           path="*"
-          element={<Navigate to={user && token ? "/note-app" : "/login"} />}
+          element={<Navigate to={isAuthenticated ? "/note-app" : "/login"} />}
         />
       </Routes>
     </Router>
