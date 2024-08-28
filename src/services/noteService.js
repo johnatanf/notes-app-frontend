@@ -66,7 +66,10 @@ const updateNoteInBackend = async (id, updatedNoteInput) => {
 
 const deleteNoteFromBackend = async (id) => {
   try {
-    console.log(`simulating deletion of note ${id}`);
+    await axios.delete(
+      `${apiUrl}/notes/${id}`,
+      { withCredentials: true }
+    );
   } catch (error) {
     console.log("Error deleting note:", error);
     throw error;

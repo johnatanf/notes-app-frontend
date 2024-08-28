@@ -24,7 +24,6 @@ function App() {
         if (response.data.authenticated) {
           setIsAuthenticated(true);
           setUser({ email: response.data.email })
-          console.log(response.data.email)
         }
 
       } catch (error) {
