@@ -50,6 +50,13 @@ const updateNoteInBackend = async (id, updatedNoteInput) => {
 
     const initialNote = notes.find((note) => note.id === id);
     const updatedNoteOutput = { ...initialNote, ...updatedNoteInput };
+
+    const response = await axios.patch(
+      `${apiUrl}/notes/${initialNote.id}`,
+      updatedNoteInput,
+      { withCredentials: true }
+    );
+
     return updatedNoteOutput;
   } catch (error) {
     console.log("Error updating note:", error);
