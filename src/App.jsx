@@ -16,7 +16,6 @@ const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 function App() {
   const { isAuthenticated, setIsAuthenticated, setUser } = useUserStore();
-  
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -38,7 +37,7 @@ function App() {
   }, []);
 
   if (isAuthenticated === null) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   return (

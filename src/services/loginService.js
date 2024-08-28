@@ -30,7 +30,7 @@ const logoutUser = async () => {
   const { setUser, setIsAuthenticated } = useUserStore.getState();
 
   try {
-    const response = await axios.post(`${apiUrl}/auth/logout`, {
+    const response = await axios.post(`${apiUrl}/auth/logout`, null, {
       withCredentials: true,
     });
 
