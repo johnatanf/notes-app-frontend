@@ -1,16 +1,33 @@
-import uuid4 from "uuid4";
 import useUserStore from "../store/useUserStore";
+import axios from "axios";
+
+const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 const registerUser = async (fullName, username, email, password) => {
+  const { setUser, setIsAuthenticated } = useUserStore.getState();
+
   try {
-    const { setUser } = useUserStore.getState();
-    setUser({ email }, uuid4());
+    const newUser = await axios.post(
+      `${apiUrl}/register`,
+      {
+        full_name: fullName,
+        username,
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
+
+    setUser({ email });
+    setIsAuthenticated(true);
 
     return {
-      message: "successful",
+      message: "successful register user",
     };
   } catch (error) {
     console.error("Error registering:", error);
+    setUser({}, null);
+    setIsAuthenticated(false);
     throw error;
   }
 };
