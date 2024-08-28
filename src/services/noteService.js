@@ -6,15 +6,13 @@ const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 const addNoteToBackend = async (newNote) => {
   try {
-    return {
-      id: uuid4(),
-      title: newNote.title,
-      text: newNote.text,
-      archived: false,
-      pinned: false,
-      createdAt: new Date().toISOString().slice(0, 10),
-      updatedAt: new Date().toISOString().slice(0, 10),
-    };
+    const response = await axios.post(
+      `${apiUrl}/notes`,
+      { title: newNote.title, text: newNote.text },
+      { withCredentials: true }
+    );
+
+    return response.data; // id, user_account_id, createdAt, updatedAt, archived, pinned, title, text
   } catch (error) {
     console.error("Error adding note:", error);
     throw error;

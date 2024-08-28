@@ -30,6 +30,7 @@ function NoteForm() {
     } else {
       // create mode
       const newNote = await noteService.addNoteToBackend({ title, text }); // add to backend
+      console.log(newNote)
       addNote(newNote); // save to state (frontend)
     }
 
