@@ -1,10 +1,11 @@
-import uuid4 from "uuid4";
+import useUserStore from "../store/useUserStore";
 import useNoteStore from "../store/useNoteStore";
 import axios from "axios";
 
 const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 const addNoteToBackend = async (newNote) => {
+  const { setUser, setIsAuthenticated } = useUserStore.getState();
   try {
     const response = await axios.post(
       `${apiUrl}/notes`,
@@ -15,11 +16,14 @@ const addNoteToBackend = async (newNote) => {
     return response.data; // id, user_account_id, createdAt, updatedAt, archived, pinned, title, text
   } catch (error) {
     console.error("Error adding note:", error);
+    setUser({}, null);
+    setIsAuthenticated(false);
     throw error;
   }
 };
 
 const getNotesFromBackend = async () => {
+  const { setUser, setIsAuthenticated } = useUserStore.getState();
   try {
     const response = await axios.get(`${apiUrl}/notes`, {
       withCredentials: true,
@@ -40,11 +44,14 @@ const getNotesFromBackend = async () => {
     return data;
   } catch (error) {
     console.log("Error retrieving notes:", error);
+    setUser({}, null);
+    setIsAuthenticated(false);
     throw error;
   }
 };
 
 const updateNoteInBackend = async (id, updatedNoteInput) => {
+  const { setUser, setIsAuthenticated } = useUserStore.getState();
   try {
     const { notes } = useNoteStore.getState();
 
@@ -60,18 +67,20 @@ const updateNoteInBackend = async (id, updatedNoteInput) => {
     return updatedNoteOutput;
   } catch (error) {
     console.log("Error updating note:", error);
+    setUser({}, null);
+    setIsAuthenticated(false);
     throw error;
   }
 };
 
 const deleteNoteFromBackend = async (id) => {
+  const { setUser, setIsAuthenticated } = useUserStore.getState();
   try {
-    await axios.delete(
-      `${apiUrl}/notes/${id}`,
-      { withCredentials: true }
-    );
+    await axios.delete(`${apiUrl}/notes/${id}`, { withCredentials: true });
   } catch (error) {
     console.log("Error deleting note:", error);
+    setUser({}, null);
+    setIsAuthenticated(false);
     throw error;
   }
 };
