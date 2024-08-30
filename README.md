@@ -1,8 +1,18 @@
-# React + Vite
+# Note App - frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Demo
+This project is deployed in Vercel.
+View demo: https://notes-app-frontend-seven.vercel.app/note-app
 
-Currently, two official plugins are available:
+## Technology
+* Vite + React
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Backend
+View backend project: https://github.com/johnatanf/notes-app-backend
+
+## Features
+* User registration (username, email, etc)
+* Authentication / cookies 
+* CRUD: a user can create, view, update and delete their own notes
+* Archive and pin notes
+* Filter and sort notes
