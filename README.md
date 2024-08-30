@@ -1,7 +1,7 @@
 # Note App - frontend
 
 ## Demo
-This project is deployed in Vercel.
+This project is deployed in Vercel.  
 View demo: https://notes-app-frontend-seven.vercel.app/note-app
 
 ## Technology
