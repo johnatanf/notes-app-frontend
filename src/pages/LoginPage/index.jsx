@@ -15,12 +15,13 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.container}>
+      <h2 className={styles.heading}>Login</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="email"
           placeholder="Email"
+          className={styles.input}
           value={emailInput}
           onChange={(e) => setEmailInput(e.target.value)}
           required
@@ -28,13 +29,14 @@ function LoginPage() {
         <input
           type="password"
           placeholder="Password"
+          className={styles.input}
           value={passwordInput}
           onChange={(e) => setPasswordInput(e.target.value)}
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit" className={styles.button}>Login</button>
       </form>
-      <a href="/register">Register</a>
+      <a href="/register" className={styles.link}>Register</a>
     </div>
   );
 }

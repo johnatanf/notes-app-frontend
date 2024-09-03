@@ -21,12 +21,13 @@ function RegisterPage() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.container}>
+      <h2 className={styles.heading}>Register</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
           placeholder="Full Name"
+          className={styles.input}
           value={fullNameInput}
           onChange={(e) => setFullNameInput(e.target.value)}
           required
@@ -34,6 +35,7 @@ function RegisterPage() {
         <input
           type="text"
           placeholder="Username"
+          className={styles.input}
           value={usernameInput}
           onChange={(e) => setUsernameInput(e.target.value)}
           required
@@ -41,6 +43,7 @@ function RegisterPage() {
         <input
           type="email"
           placeholder="Email"
+          className={styles.input}
           value={emailInput}
           onChange={(e) => setEmailInput(e.target.value)}
           required
@@ -48,13 +51,14 @@ function RegisterPage() {
         <input
           type="password"
           placeholder="Password"
+          className={styles.input}
           value={passwordInput}
           onChange={(e) => setPasswordInput(e.target.value)}
           required
         />
-        <button type="submit">Register</button>
+        <button type="submit" className={styles.button}>Register</button>
       </form>
-      <a href="/login">Login</a>
+      <a href="/login" className={styles.link}>Login</a>
     </div>
   );
 }
