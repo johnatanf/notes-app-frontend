@@ -9,9 +9,9 @@ function Filter() {
   };
 
   return (
-    <div>
-      <label htmlFor="filter-options">Choose an option:</label>
-      <select id="filter-options" name="options" value={filter} onChange={handleChange}>
+    <div className={styles.container}>
+      <label htmlFor="filter-options" className={styles.label}>Filter:</label>
+      <select id="filter-options" name="options" value={filter} onChange={handleChange} className={styles.select}>
         <option value="active">active notes</option>
         <option value="archived">archived</option>
       </select>

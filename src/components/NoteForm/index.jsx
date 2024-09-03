@@ -50,9 +50,9 @@ function NoteForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`${styles.div} ${mode === "edit" ? styles.edit : ""}`}
+      className={`${styles.form} ${mode === 'edit' ? styles.edit : ''}`}
     >
-      <div>
+      <div className={styles.field}>
         <label htmlFor="title">Title:</label>
         <input
           required
@@ -61,6 +61,7 @@ function NoteForm() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Note title..."
+          className={styles.input}
         />
       </div>
       <div>
@@ -71,10 +72,11 @@ function NoteForm() {
           onChange={(e) => setText(e.target.value)}
           placeholder="Note text..."
           required
+          className={styles.textarea}
         />
       </div>
-      <button type="submit">Submit</button>
-      {mode === "edit" ? <button onClick={handleCancel}>Cancel</button> : null}
+      <button type="submit" className={styles.submitButton}>Submit</button>
+      {mode === "edit" ? <button onClick={handleCancel} className={styles.cancelButton}>Cancel</button> : null}
     </form>
   );
 }

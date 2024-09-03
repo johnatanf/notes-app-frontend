@@ -26,7 +26,7 @@ function NoteList() {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       {notes
         .filter((note) => {
           if (filter === "archived") {

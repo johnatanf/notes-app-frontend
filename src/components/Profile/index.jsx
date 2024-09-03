@@ -1,6 +1,6 @@
 import useUserStore from "../../store/useUserStore";
 import loginService from "../../services/loginService";
-import "./Profile.module.css";
+import styles from "./Profile.module.css";
 
 function Profile() {
   const user = useUserStore((state) => state.user);
@@ -14,10 +14,10 @@ function Profile() {
   };
 
   return (
-    <>
-      <div>{user ? <p>{user.email} currently logged in</p> : null}</div>
-      <button onClick={handleLogout}>Logout</button>
-    </>
+    <div className={styles.container}>
+      {user && <p className={styles.info}>{user.email} currently logged in</p>}
+      <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
+    </div>
   );
 }
 

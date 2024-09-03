@@ -9,9 +9,9 @@ function Sort() {
   };
 
   return (
-    <div>
-      <label htmlFor="sort-options">Sort by:</label>
-      <select id="sort-options" name="options" value={sort} onChange={handleChange}>
+    <div className={styles.container}>
+      <label htmlFor="sort-options" className={styles.label}>Sort by:</label>
+      <select id="sort-options" name="options" value={sort} onChange={handleChange} className={styles.select}>
         <option value="created-at">create date</option>
         <option value="title">title</option>
       </select>
